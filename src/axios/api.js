@@ -17,5 +17,12 @@ instance.interceptors.response.use((response)=>{
 export default {
     getProduct(params={}){
         return instance.get('/product/pagination',{params})
+    },
+    getDetail(id){
+        // console.log(id);
+        return instance.get('/product',{params:{id,}});
+    },
+    userLogin(data){
+        return instance.post('/user/signin',data);
     }
 }

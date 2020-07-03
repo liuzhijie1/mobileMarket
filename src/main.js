@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 import store from './store/index.js';
 import VueJsonp from 'vue-jsonp';
-
+import api from '@/axios/api'
 Vue.config.productionTip = false
 
 
@@ -18,6 +18,19 @@ Vue.jsonp("http://api.map.baidu.com/geocoder/v2/?ak=C93b5178d7a8ebdb830b9b557abc
   // store.commit("updateSelectCity",res.result.addressComponent.city)
 })
 // console.log(store)
+
+
+
+// 测试远程获取数据
+// api.userLogin({name:'stew123',password:'stew1234'}).then(data=>{
+//   console.log(data);
+// })
+
+
+
+
+
+
 
 /* eslint-disable no-new */
 new Vue({

@@ -7,6 +7,7 @@
           span="12"
           v-for="(product, index) in productList"
           :key="index"
+          @click="goDetail(product.id)"
         >
           <div class="item-pro">
             <div class="img">
@@ -29,6 +30,7 @@
 import { Col, Row } from "vant";
 export default {
   methods: {
+    // 下拉加载更多数据
     more() {
       let product = this.$refs["product"];
       if (
@@ -50,6 +52,15 @@ export default {
           });
         }
       }
+    },
+    goDetail(id){
+        // console.log(id);
+        this.$router.push({
+            path:'/product',
+            query:{
+                id,
+            }
+        });
     }
   },
   computed: {
