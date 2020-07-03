@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import store from './store';
+import store from './store/index.js';
 import VueJsonp from 'vue-jsonp';
 
 Vue.config.productionTip = false
@@ -17,6 +17,7 @@ Vue.jsonp("http://api.map.baidu.com/geocoder/v2/?ak=C93b5178d7a8ebdb830b9b557abc
   console.log(res.result.addressComponent.city)
   // store.commit("updateSelectCity",res.result.addressComponent.city)
 })
+// console.log(store)
 
 /* eslint-disable no-new */
 new Vue({

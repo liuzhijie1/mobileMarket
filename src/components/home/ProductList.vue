@@ -1,59 +1,94 @@
 <template>
-  <div class="product">
-      <div class="main">
-        <van-row>
-          <van-col class="item" span="12" v-for="(product,index) in productList" :key="index">
-            <div class="item-pro">
-              <div class="img">
-                <img :src="product.cover" alt="">
-              </div>
-              <div class="title">
-                {{ product.name }}
-              </div>
-              <div class="price">
-                {{ product.price | money }}
-              </div>
+  <div class="product" @scroll="more" ref="product">
+    <div class="main">
+      <van-row>
+        <van-col
+          class="item"
+          span="12"
+          v-for="(product, index) in productList"
+          :key="index"
+        >
+          <div class="item-pro">
+            <div class="img">
+              <img :src="product.cover" alt="" />
             </div>
-          </van-col>
-        </van-row>
-      </div>
+            <div class="title">
+              {{ product.name }}
+            </div>
+            <div class="price">
+              {{ product.price | money }}
+            </div>
+          </div>
+        </van-col>
+      </van-row>
+    </div>
   </div>
 </template>
 
 <script>
-import { Col, Row } from 'vant';
+import { Col, Row } from "vant";
 export default {
-  props:{
-    productList:{
-      type:Array,
+  methods: {
+    more() {
+      let product = this.$refs["product"];
+      if (
+        product.scrollTop + product.clientHeight + 1 >=
+        product.scrollHeight
+      ) {
+        if (this.$store.state.flag) {
+          this.$store.commit("reqon");
+          this.$store.commit("addPage");
+          console.log(
+            "请求了",
+            this.$store.state.page,
+            "   ",
+            this.$store.state.size
+          );
+          this.$store.dispatch("reqProduct", {
+            page: this.$store.state.page,
+            size: this.$store.state.size
+          });
+        }
+      }
+    }
+  },
+  computed: {
+    productList() {
+      return this.$store.getters.List;
+    }
+  },
+  created() {
+    if (this.$store.state.flag) {
+      this.$store.commit("reqon");
+      this.$store.dispatch("reqProduct", {});
     }
   },
   components: {
-    [Col.name]:Col,
-    [Row.name]:Row
+    [Col.name]: Col,
+    [Row.name]: Row
   },
-  mounted () {
+  mounted() {
     console.log(this.productList);
   },
   filters: {
     money: function(value) {
-      return '￥'+value;
+      return "￥" + value;
     }
   }
-}
+};
 </script>
 
 <style scoped>
-.product{
+.product {
   height: calc(100vh - 16vh);
   overflow: auto;
 }
-.item{
+.item {
   height: 32vh;
   /* background: chartreuse; */
   padding: 6px;
 }
-.item .item-pro{
+.item .item-pro {
   width: 100%;
   height: 100%;
   /* background: teal; */
@@ -61,16 +96,16 @@ export default {
   border: 1px solid gray;
   box-shadow: 1px 1px 4px 0px gray;
 }
-.img{
+.img {
   height: 70%;
   /* background: red; */
   margin-top: 10px;
 }
-img{
+img {
   width: 100%;
   height: 100%;
 }
-.title{
+.title {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -78,7 +113,7 @@ img{
   font-size: 14px;
   font-weight: 900;
 }
-.price{
+.price {
   padding: 0 10px;
   color: red;
 }

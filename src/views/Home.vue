@@ -1,7 +1,7 @@
 <template>
   <div>
     <liu-header></liu-header>
-    <liu-product-list :productList="productList"></liu-product-list>
+    <liu-product-list></liu-product-list>
     <liu-Footer></liu-Footer>
   </div>
 </template>
@@ -14,7 +14,7 @@ import ProductList from '@/components/home/ProductList';
 export default {
     data() {
         return {
-            productList:[],
+            
         }
     },
     components: {
@@ -22,10 +22,8 @@ export default {
         'liuFooter':Footer,
         'liuProductList':ProductList,
     },
-    mounted () {
-        api.getProduct().then(data=>{
-            this.productList = data.data.data;
-        });
+    methods: {
+        
     },
 };
 </script>
