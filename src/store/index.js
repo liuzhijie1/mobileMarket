@@ -14,6 +14,7 @@ export default new Vuex.Store({
         citySelect:'',
         cityArea:'',
         nowPath:'',
+        cartList:[],
     },
     mutations:{
         moreProduct(state,data){
