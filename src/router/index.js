@@ -73,6 +73,13 @@ const router = new Router({
         meta:{
           title:'用户页面'
         }
+      },
+      {
+        path:'/test',
+        component:()=>import('@/views/test/test.vue'),
+        meta:{
+          title:'测试'
+        }
       }
     ]
 })

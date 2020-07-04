@@ -42,6 +42,9 @@ export default new Vuex.Store({
         },
         changeNowPath(state,Path){
             state.nowPath = Path;
+        },
+        setCart(state,data){
+            state.cartList = data;
         }
     },
     getters: {
@@ -56,6 +59,9 @@ export default new Vuex.Store({
         },
         getPath(state){
             return state.nowPath;
+        },
+        getCart(state){
+            return state.cartList;
         }
     },
     actions:{

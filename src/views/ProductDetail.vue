@@ -52,7 +52,7 @@
       <van-goods-action>
         <!-- <van-goods-action-icon icon="star" text="已收藏"  color="#ff5000"/> -->
         <van-goods-action-icon icon="star-o" text="收藏" />
-        <van-goods-action-icon icon="cart-o" text="购物车" />
+        <van-goods-action-icon icon="cart-o" text="购物车" @click="goCart"/>
         <van-goods-action-button
           color="#be99ff"
           type="warning"
@@ -92,6 +92,11 @@ export default {
         // console.log(data);
         this.ProductDetail = data.data;
       });
+  },
+  methods: {
+    goCart() {
+      this.$router.push('/cart');
+    }
   },
   computed: {
     lazyImage() {
