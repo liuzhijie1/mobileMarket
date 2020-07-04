@@ -1,8 +1,8 @@
 <template>
   <div class="header">
-    <div class="back" @click="goback()"><van-icon name="arrow-left"/><span>返回</span></div>
+    <div class="back" @click="goback()"><van-icon name="arrow-left"/><span><slot name="title">返回</slot></span></div>
     <div class="content">
-      <slot>信息</slot>
+      <slot>项目</slot>
     </div>
   </div>
 </template>
@@ -11,7 +11,7 @@
 import { Icon } from "vant";
 export default {
   components: {
-    [Icon.name]: Icon
+    [Icon.name]: Icon,
   },
   methods: {
     goback() {

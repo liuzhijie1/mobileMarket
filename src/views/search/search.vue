@@ -1,11 +1,18 @@
 <template>
-  <div class="product" @scroll="more" ref="product">
-    <div class="main">
+  <div class="search">
+    <liu-header>
+      <van-search
+        v-model.lazy="value"
+        placeholder="请输入搜索关键词"
+        @change="search"
+      />
+    </liu-header>
+    <div class="content">
       <van-row>
         <van-col
           class="item"
           span="12"
-          v-for="(product, index) in productList"
+          v-for="(product, index) in list"
           :key="index"
           @click="goDetail(product.id)"
         >
@@ -27,62 +34,45 @@
 </template>
 
 <script>
-import { Col, Row } from "vant";
+import LiuHeader from "@/components/share/LiuHeader.vue";
+// 这里是设计的作用域的问题
+import { Search, Col, Row } from "vant";
+import api from "@/axios/api";
 export default {
-  methods: {
-    // 下拉加载更多数据
-    more() {
-      let product = this.$refs["product"];
-      if (
-        product.scrollTop + product.clientHeight + 1 >=
-        product.scrollHeight
-      ) {
-        if (this.$store.state.flag) {
-          this.$store.commit("reqon");
-          this.$store.commit("addPage");
-          this.$store.dispatch("reqProduct", {
-            page: this.$store.state.page,
-            size: this.$store.state.size
-          });
-        }
-      }
-    },
-    goDetail(id){
-        // console.log(id);
-        this.$router.push({
-            path:'/product',
-            query:{
-                id,
-            }
-        });
-    }
-  },
-  computed: {
-    productList() {
-      return this.$store.getters.List;
-    }
-  },
-  created() {
-    if (this.$store.state.flag) {
-      this.$store.commit("reqon");
-      this.$store.dispatch("reqProduct", {});
-    }
-  },
   components: {
+    LiuHeader,
+    [Search.name]: Search,
     [Col.name]: Col,
     [Row.name]: Row
   },
-  mounted() {
-    console.log(this.productList);
+  data() {
+    return {
+      value: "",
+      list: []
+    };
   },
+  methods: {
+    search() {
+    //   console.log(this.value);
+      api.SearchItem({ page: 1, size: 20, key: this.value }).then(data => {
+        // console.log(data.data.data);
+        this.list = data.data.data;
+      });
+    },
+    goDetail(id) {
+      // console.log(id);
+      this.$router.push({
+        path: "/product",
+        query: {
+          id
+        }
+      });
+    }
+  }
 };
 </script>
 
-<style scoped>
-.product {
-  height: calc(100vh - 16vh);
-  overflow: auto;
-}
+<style>
 .item {
   height: 32vh;
   /* background: chartreuse; */

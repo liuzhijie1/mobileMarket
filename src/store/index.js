@@ -10,6 +10,10 @@ export default new Vuex.Store({
         page:1,
         size:10,
         flag:true,
+        location:'',
+        citySelect:'',
+        cityArea:'',
+        nowPath:'',
     },
     mutations:{
         moreProduct(state,data){
@@ -25,11 +29,32 @@ export default new Vuex.Store({
         },
         reqoff(state){
             state.flag = true;
+        },
+        setLocation(state,city){
+            state.location = city;
+        },
+        setCitySelect(state,citySelect){
+            state.citySelect = citySelect;
+        },
+        setCityArea(state,cityarea){
+            state.cityArea = cityarea;
+        },
+        changeNowPath(state,Path){
+            state.nowPath = Path;
         }
     },
     getters: {
         List(state){
             return state.productList;
+        },
+        mylocation(state){
+            return state.location;
+        },
+        myCitySelect(state){
+            return state.citySelect;
+        },
+        getPath(state){
+            return state.nowPath;
         }
     },
     actions:{

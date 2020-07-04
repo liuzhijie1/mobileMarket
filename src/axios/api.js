@@ -24,5 +24,14 @@ export default {
     },
     userLogin(data){
         return instance.post('/user/signin',data);
+    },
+    getCitySelect(){
+        return instance.get('/data/city');
+    },
+    getCityArea(){
+        return instance.get('/data/area');
+    },
+    SearchItem(params={}){
+        return instance.get('/product/pagination',{params})
     }
 }

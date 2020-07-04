@@ -1,12 +1,12 @@
 <template>
   <div class="header">
-      <div class="left">
-        <van-icon name="location-o" color="#1989fa" />&nbsp;<span>深圳市</span>
+      <div class="left" @click="selectCity">
+        <van-icon name="location-o" color="#1989fa" />&nbsp;<span>{{ $store.getters.mylocation}}</span>
       </div>
       <div class="center">
         精选
       </div>
-      <div class="right">
+      <div class="right" @click="search">
         <van-icon name="search" color="#1989fa" size="24px"/>
       </div>
   </div>
@@ -17,6 +17,14 @@ import {Icon} from 'vant';
 export default {
   components: {
     [Icon.name]:Icon,
+  },
+  methods: {
+    selectCity() {
+      this.$router.push('/selectCity');
+    },
+    search(){
+      this.$router.push('/search');
+    }
   },
 }
 </script>
